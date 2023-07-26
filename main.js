@@ -79,15 +79,33 @@ const calcAge = () => {
     diffMonths += 12;
   }
 
+  const chackContains = () => {
+    if (
+      yearErrorMsg.parentNode.classList.contains("invalid") ||
+      monthErrorMsg.parentNode.classList.contains("invalid") ||
+      dayErrorMsg.parentNode.classList.contains("invalid")
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  console.log(chackContains());
+
   function showResult(element, diff) {
-    let i = 0;
-    let timer = setInterval(() => {
-      element.textContent = i;
-      i++;
-      if (i > diff) {
-        clearInterval(timer);
-      }
-    }, 500 / diff);
+    if (chackContains()) {
+      let i = 0;
+      let timer = setInterval(() => {
+        element.textContent = i;
+        i++;
+        if (i > diff) {
+          clearInterval(timer);
+        }
+      }, 500 / diff);
+    } else {
+      element.textContent = "- -";
+    }
   }
 
   showResult(yearsNum, diffYears);
@@ -95,7 +113,7 @@ const calcAge = () => {
   showResult(daysNum, diffDay);
 };
 
-const fillFunction = (functionN, input, errorMsg) => {
+function fillFunction(functionN, input, errorMsg) {
   if (functionN) {
     errorMsg.parentNode.classList.add("invalid");
     errorMsg.textContent = input.value
@@ -107,4 +125,4 @@ const fillFunction = (functionN, input, errorMsg) => {
       ? "Must be a valid value"
       : "This field is required";
   }
-};
+}
